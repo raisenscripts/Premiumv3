@@ -1511,12 +1511,18 @@ local function createGui()
     local frame = Instance.new("Frame")
     frame.Size = UDim2.new(0, 200, 0, 100)
     frame.Position = UDim2.new(0.5, -100, 0.5, -50)
-    frame.BackgroundColor3 = Color3.new(0, 0, 0)
+    frame.BackgroundColor3 = Color3.fromRGB(50, 50, 50)
+    frame.BorderSizePixel = 2
+    frame.BorderColor3 = Color3.fromRGB(255, 255, 255)
     frame.Parent = screenGui
 
     local button = Instance.new("TextButton")
     button.Size = UDim2.new(1, 0, 1, 0)
     button.Text = "unshutdown"
+    button.BackgroundColor3 = Color3.fromRGB(100, 100, 100)
+    button.TextColor3 = Color3.fromRGB(255, 255, 255)
+    button.Font = Enum.Font.SourceSans
+    button.TextSize = 24
     button.Parent = frame
 
     button.MouseButton1Click:Connect(function()
