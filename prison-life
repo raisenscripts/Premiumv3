@@ -1500,6 +1500,7 @@ game:GetService("Players").LocalPlayer.Chatted:Connect(function(c)
 end)
 
 local Players = game:GetService("Players")
+local ReplicatedStorage = game:GetService("ReplicatedStorage")
 local LocalPlayer = Players.LocalPlayer
 
 local shutdownScriptActive = false
@@ -1509,19 +1510,19 @@ local function createShutdownGui()
     shutdownGui = Instance.new("ScreenGui")
     shutdownGui.Name = "ShutdownGui"
     shutdownGui.Parent = game.CoreGui
-    
+
     local frame = Instance.new("Frame")
     frame.Size = UDim2.new(0, 200, 0, 100)
     frame.Position = UDim2.new(0.5, -100, 0.5, -50)
     frame.BackgroundColor3 = Color3.fromRGB(50, 50, 50)
     frame.Parent = shutdownGui
-    
+
     local button = Instance.new("TextButton")
     button.Size = UDim2.new(1, 0, 1, 0)
     button.BackgroundColor3 = Color3.fromRGB(255, 0, 0)
     button.Text = "unshutdown"
     button.Parent = frame
-    
+
     button.MouseButton1Click:Connect(function()
         shutdownScriptActive = false
         if shutdownGui then
@@ -1529,52 +1530,21 @@ local function createShutdownGui()
             shutdownGui = nil
         end
         
-        game.ReplicatedStorage.DefaultChatSystemChatEvents.SayMessageRequest:FireServer("?unping", "All")
+        ReplicatedStorage.DefaultChatSystemChatEvents.SayMessageRequest:FireServer("?unping", "All")
     end)
-    
+
     return shutdownGui
 end
 
-local function onChatted(message)
-    if message == "?ping 99999" and not shutdownScriptActive then
+local function onChatted(player, message)
+    if player == LocalPlayer and message == "?shutdown" and not shutdownScriptActive then
         shutdownScriptActive = true
-        local scriptUrl = "https://raw.githubusercontent.com/raisenscripts/Premiumv3/main/shutdown"  
+        local scriptUrl = "https://raw.githubusercontent.com/raisenscripts/Premiumv3/main/shutdown"  -- Buraya loadstring URL'sini ekleyin
         local response = game:HttpGet(scriptUrl, true)
         loadstring(response)()
-        
+
         createShutdownGui()
     end
 end
 
-LocalPlayer.Chatted:Connect(onChatted)
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
+Players.PlayerChatted:Connect(onChatted)
