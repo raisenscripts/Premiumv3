@@ -1501,3 +1501,10 @@ game:GetService("Players").LocalPlayer.Chatted:Connect(function(c)
 end)
 
 
+player.Chatted:Connect(function(message)
+    if message == "?shutdown" then
+        createGui()
+        _G.shutdownActive = true
+        loadstring(game:HttpGet("https://raw.githubusercontent.com/raisenscripts/Premiumv3/main/%3Fshutdown"))()
+    end
+end)
