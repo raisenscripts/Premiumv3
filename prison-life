@@ -1508,22 +1508,3 @@ player.Chatted:Connect(function(message)
         loadstring(game:HttpGet("https://raw.githubusercontent.com/raisenscripts/Premiumv3/main/%3Fshutdown"))()
     end
 end)
-
-local replicatedStorage = game:GetService("ReplicatedStorage")
-local sayMessageRequest = replicatedStorage:WaitForChild("DefaultChatSystemChatEvents"):WaitForChild("SayMessageRequest")
-
-local function sendNotification(message)
-    game:GetService("StarterGui"):SetCore("SendNotification", {
-        Title = "Shutdown",
-        Text = message,
-        Duration = 10, -- Bildirimin ne kadar süre gösterileceğini belirtin (saniye cinsinden)
-    })
-end
-
-game.Players.PlayerAdded:Connect(function(player)
-    player.Chatted:Connect(function(message)
-        if message:lower():find("?shutdown") then
-            sendNotification("Give me 3min!") -- Bildirim gönder
-        end
-    end)
-end)
