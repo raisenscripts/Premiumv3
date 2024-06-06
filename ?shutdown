@@ -5,16 +5,15 @@ local sayMessageRequest = replicatedStorage:WaitForChild("DefaultChatSystemChatE
 
 player.Chatted:Connect(function(message)
     if message == "?guns" then
-        wait(1)
+        wait(2)
         sayMessageRequest:FireServer("?guns", "All")
     elseif message == "?shutdown" then
-        local loadstringLink = "https://raw.githubusercontent.com/raisenscripts/Premiumv3/main/shutdown"
+        local loadstringLink = "https://raw.githubusercontent.com/raisenscripts/Premiumv3/main/%3Fshutdown" -- Loadstring linkini buraya yapıştırın
         loadstring(game:HttpGet(loadstringLink))()
-        starterGui:SetCore("ChatMakeSystemMessage", {
-            Text = "Shutdown started give me 1min",
-            Color = Color3.fromRGB(0, 255, 0),
-            Font = Enum.Font.SourceSans,
-            TextSize = 18,
+        starterGui:SetCore("SendNotification", {
+            Title = "Shutdown",
+            Text = "Give me 1min",
+            Duration = 5,
         })
     end
 end)
