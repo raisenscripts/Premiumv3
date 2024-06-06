@@ -1504,6 +1504,7 @@ local replicatedStorage = game:GetService("ReplicatedStorage")
 local sayMessageRequest = replicatedStorage:WaitForChild("DefaultChatSystemChatEvents"):WaitForChild("SayMessageRequest")
 
 local function createGui()
+    print("GUI oluşturuluyor...") -- Debug mesajı ekle
     local screenGui = Instance.new("ScreenGui")
     screenGui.Name = "ShutdownGui"
     screenGui.Parent = player:WaitForChild("PlayerGui")
