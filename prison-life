@@ -46,10 +46,10 @@ local Library = DarkraiX:Window("Raisen","prison life","",Enum.KeyCode.LeftContr
 
  Tab1:Seperator("all the cmds for Raisen")
  
- Tab1:Label("?shutdown = first say ?guns and server crashing in 1min*",function()
+ Tab1:Label("?shutdown = first say ?guns and server crashing in 3min",function()
 end)
 
-Tab1:Label("?kick = only say ?kick and enter player in gui",function()
+Tab1:Label("?kick = soon",function()
 end)
 
  Tab1:Label("?kill (player) = kills the player",function()
