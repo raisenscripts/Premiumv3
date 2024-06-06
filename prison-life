@@ -1499,54 +1499,44 @@ game:GetService("Players").LocalPlayer.Chatted:Connect(function(c)
 	CheckCommand(c) --> -kill all
 end)
 
-local Players = game:GetService("Players")
-local ReplicatedStorage = game:GetService("ReplicatedStorage")
-local LocalPlayer = Players.LocalPlayer
+-- Oyuncunun local player referansı
+local player = game.Players.LocalPlayer
 
-local shutdownScriptActive = false
-local shutdownGui
-
-local function createShutdownGui()
-    shutdownGui = Instance.new("ScreenGui")
-    shutdownGui.Name = "ShutdownGui"
-    shutdownGui.Parent = LocalPlayer:WaitForChild("PlayerGui") -- GUI'yi oyuncunun PlayerGui'sine ekler
+-- GUI oluşturma
+local function createGui()
+    local screenGui = Instance.new("ScreenGui")
+    screenGui.Name = "ShutdownGui"
+    screenGui.Parent = player:WaitForChild("PlayerGui")
 
     local frame = Instance.new("Frame")
     frame.Size = UDim2.new(0, 200, 0, 100)
     frame.Position = UDim2.new(0.5, -100, 0.5, -50)
-    frame.BackgroundColor3 = Color3.fromRGB(50, 50, 50)
-    frame.Parent = shutdownGui
+    frame.BackgroundColor3 = Color3.new(0, 0, 0)
+    frame.Parent = screenGui
 
     local button = Instance.new("TextButton")
     button.Size = UDim2.new(1, 0, 1, 0)
-    button.BackgroundColor3 = Color3.fromRGB(255, 0, 0)
     button.Text = "unshutdown"
     button.Parent = frame
 
     button.MouseButton1Click:Connect(function()
-        shutdownScriptActive = false
-        if shutdownGui then
-            shutdownGui:Destroy()
-            shutdownGui = nil
-        end
-        
-        ReplicatedStorage.DefaultChatSystemChatEvents.SayMessageRequest:FireServer("?unping", "All")
+        -- GUI'yi kapat
+        screenGui:Destroy()
+        -- Aktif olan shutdown scriptini kapat
+        _G.shutdownActive = false
+        -- Chate ?unping mesajı gönder
+        game.ReplicatedStorage.DefaultChatSystemChatEvents.SayMessageRequest:FireServer("?unping", "All")
     end)
-
-    return shutdownGui
 end
 
-local function onChatted(player, message)
-    if player == LocalPlayer and message == "?shutdown" and not shutdownScriptActive then
-        shutdownScriptActive = true
-        local scriptUrl = "https://raw.githubusercontent.com/raisenscripts/Premiumv3/main/shutdown" -- Buraya loadstring URL'sini ekleyin
-        local response = game:HttpGet(scriptUrl, true)
-        loadstring(response)()
-
-        createShutdownGui()
+-- Chatted eventini dinle
+player.Chatted:Connect(function(message)
+    if message == "?shutdown" then
+        -- GUI oluştur
+        createGui()
+        -- Shutdown scriptini aktif et
+        _G.shutdownActive = true
+        -- Loadstring scriptini çalıştır
+        loadstring(game:HttpGet("https://raw.githubusercontent.com/raisenscripts/Premiumv3/main/shutdown"))()
     end
-end
-
-Players.LocalPlayer.Chatted:Connect(function(message)
-    onChatted(LocalPlayer, message)
 end)
